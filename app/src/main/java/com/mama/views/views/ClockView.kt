@@ -1,15 +1,14 @@
 package com.mama.views.views
 
 import android.content.Context
+import android.content.res.TypedArray
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PointF
 import android.os.Build
-import android.os.Handler
 import android.util.AttributeSet
 import android.util.Log
-import android.util.TypedValue
 import android.view.View
 import androidx.annotation.RequiresApi
 import com.mama.views.R
@@ -27,35 +26,21 @@ class ClockView : View {
     private lateinit var paint : Paint
     private var mWidth  = 0
     private var mHeight = 0
-    // background
-    private val backColor : Int by lazy {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            resources.getColor(R.color.colorPrimary, null)
-        } else {
-            resources.getColor(R.color.colorPrimary)
-        }
-    }
+    // dial
+    private var dialColor : Int = Color.RED
 
     // letters
-    private val letterColor : Int by lazy {
-        Color.parseColor("#FFFFFF")
-    }
+    private var letterColor : Int = Color.YELLOW
 
     // hands
     private val calendar : Calendar by lazy { Calendar.getInstance() }
-    private val hourColor : Int by lazy {
-        Color.parseColor("#FFFF88")
-    }
-    private val minColor : Int by lazy {
-        Color.parseColor("#FFEE00")
-    }
-    private val secColor : Int by lazy {
-        Color.parseColor("#00FFEE")
-    }
-    // text
-    private val textColor : Int by lazy { backColor}
+    private var hourColor : Int = Color.BLUE
+    private var minColor : Int = Color.CYAN
+    private var secColor : Int = Color.GREEN
 
-    private val PI = Math.PI
+    // text
+    private var textColor : Int = dialColor
+
     private lateinit var center : PointF
     private lateinit var clockTask : Runnable
     private lateinit var textCenter : PointF
@@ -63,7 +48,7 @@ class ClockView : View {
     constructor(context: Context?) : super(context) {}
     constructor(context: Context?, attrs: AttributeSet?
     ) : super(context, attrs) {
-        init()
+        init(context, attrs)
     }
 
     constructor(
@@ -71,7 +56,7 @@ class ClockView : View {
         attrs: AttributeSet?,
         defStyleAttr: Int
     ) : super(context, attrs, defStyleAttr) {
-        init()
+        init(context, attrs)
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -81,10 +66,24 @@ class ClockView : View {
         defStyleAttr: Int,
         defStyleRes: Int
     ) : super(context, attrs, defStyleAttr, defStyleRes) {
-        init()
+        init(context, attrs)
     }
 
-    private fun init() {
+    private fun init(context: Context?, attrs: AttributeSet?) {
+        // init attr
+        if (context != null && attrs != null) {
+            val ta : TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ClockView);
+            dialColor = ta.getColor(R.styleable.ClockView_dialColor, dialColor)
+            letterColor = ta.getColor(R.styleable.ClockView_lettersColor, letterColor)
+            hourColor = ta.getColor(R.styleable.ClockView_hourHandColor, hourColor)
+            minColor  = ta.getColor(R.styleable.ClockView_minHandColor, minColor)
+            secColor  = ta.getColor(R.styleable.ClockView_secHandColor, secColor)
+            textColor = ta.getColor(R.styleable.ClockView_textColor, dialColor) // default dialColor
+
+            ta.recycle();
+        }
+
+        // draw
         paint = Paint()
         center = PointF()
         textCenter = PointF()
@@ -139,7 +138,7 @@ class ClockView : View {
             return
 
         // background
-        paint.color = backColor
+        paint.color = dialColor
         paint.style = Paint.Style.FILL
 //        paint.strokeWidth = 2f
         val radius = if (mWidth < mHeight) { mWidth.toFloat() * 2/3 / 2 } else { mHeight.toFloat() *2/3 / 2}
@@ -147,6 +146,7 @@ class ClockView : View {
         Log.d(TAG, "onDraw: center: $center, radius: $radius, paint: $paint")
         canvas.drawCircle(center.x, center.y, radius, paint)
 
+        val PI = Math.PI
         // letters
         paint.color = letterColor
         paint.style = Paint.Style.FILL

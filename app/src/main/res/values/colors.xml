@@ -3,4 +3,11 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="clock_dial">#6200EE</color>
+    <color name="clock_letters">#EEFFEE</color>
+    <color name="clock_hour_hand">#FFFF00</color>
+    <color name="clock_min_hand">#00FFFF</color>
+    <color name="clock_sec_hand">#FF99FF</color>
+    <color name="clock_text">#6200EE</color>
 </resources>

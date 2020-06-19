@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.mama.views.views.ClockView
         android:id="@+id/clock"
         android:layout_centerInParent="true"
+        app:dialColor="@color/clock_dial"
+        app:lettersColor="@color/clock_letters"
+        app:hourHandColor="@color/clock_hour_hand"
+        app:minHandColor="@color/clock_min_hand"
+        app:secHandColor="@color/clock_sec_hand"
+        app:textColor="@color/clock_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </RelativeLayout>
