@@ -45,7 +45,7 @@ class ClockView : View {
     private lateinit var clockTask : Runnable
     private lateinit var textCenter : PointF
 
-    constructor(context: Context?) : super(context) {}
+    constructor(context: Context?) : super(context) {init(context, null)}
     constructor(context: Context?, attrs: AttributeSet?
     ) : super(context, attrs) {
         init(context, attrs)
@@ -140,6 +140,7 @@ class ClockView : View {
         // background
         paint.color = dialColor
         paint.style = Paint.Style.FILL
+        paint.isAntiAlias = true
 //        paint.strokeWidth = 2f
         val radius = if (mWidth < mHeight) { mWidth.toFloat() * 2/3 / 2 } else { mHeight.toFloat() *2/3 / 2}
         center.set(mWidth.toFloat()/2, mHeight.toFloat()/3)
@@ -151,6 +152,7 @@ class ClockView : View {
         paint.color = letterColor
         paint.style = Paint.Style.FILL
         paint.strokeWidth = 10f
+        paint.isAntiAlias = true
         val centerX = center.x;
         val centerY = center.y
         val innerR = radius * 6/8
@@ -174,6 +176,7 @@ class ClockView : View {
         paint.color = hourColor
         paint.style = Paint.Style.FILL
         paint.strokeWidth = 12f
+        paint.isAntiAlias = true
         var positiveR = radius / 3
         var oppositeR = radius / 8
         var startX = centerX + sin(PI + (hour + min/60f)*PI/6) * oppositeR
@@ -188,6 +191,7 @@ class ClockView : View {
         paint.color = minColor
         paint.style = Paint.Style.FILL
         paint.strokeWidth = 8f
+        paint.isAntiAlias = true
         positiveR = radius * 2 / 3
         oppositeR = radius / 8
         startX = centerX + sin(PI + min / 60f * (2*PI)) * oppositeR
@@ -201,6 +205,7 @@ class ClockView : View {
         paint.color = secColor
         paint.style = Paint.Style.FILL
         paint.strokeWidth = 6f
+        paint.isAntiAlias = true
         positiveR = radius * 2 / 3
         oppositeR = radius / 8
         startX = centerX + sin(PI + sec / 60f * (2*PI)) * oppositeR
@@ -217,6 +222,7 @@ class ClockView : View {
         paint.strokeWidth = 4f
         paint.textSize = textPixSize.toFloat()
         paint.textAlign = Paint.Align.CENTER
+        paint.isAntiAlias = true
 //        center.set(mWidth.toFloat()/2, mHeight.toFloat()/3)
         textCenter.set(mWidth.toFloat()/2, mHeight.toFloat()*3/4)
         canvas.drawText( String.format("%02d:%02d:%02d", hour, min, sec), textCenter.x, textCenter.y, paint )

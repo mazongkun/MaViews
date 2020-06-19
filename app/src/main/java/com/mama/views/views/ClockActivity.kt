@@ -17,8 +17,7 @@ class ClockActivity : BaseActivity() {
         initView()
     }
 
-    fun initView() {
+    private fun initView() {
         val vClock = clock;
-
     }
 }
