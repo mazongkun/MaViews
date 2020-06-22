@@ -3,7 +3,7 @@ package com.mama.views
 import android.content.Intent
 import android.os.Bundle
 import com.mama.views.base.BaseActivity
-import com.mama.views.views.ClockActivity
+import com.mama.views.views.OvalPathActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -17,7 +17,8 @@ class MainActivity : BaseActivity() {
         sample_text.setOnClickListener { v ->
             when(v.id) {
                 R.id.sample_text -> {
-                    startActivity(Intent(this, ClockActivity::class.java))
+                    startActivity(Intent(this, OvalPathActivity::class.java))
+//                    startActivity(Intent(this, ClockActivity::class.java))
                 }
 //                else
             }

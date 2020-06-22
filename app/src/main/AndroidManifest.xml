@@ -20,6 +20,8 @@
 
         <activity android:name=".views.ClockActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".views.OvalPathActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
